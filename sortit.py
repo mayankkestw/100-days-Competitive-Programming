@@ -13,19 +13,24 @@ The required output should be "4 2 0 1 3"
 
 '''
 
-def SortItOut(arr, n):
-    l = [0]*n
-    arr2 = sorted(arr)
-    for i, j in enumerate(arr):
-        for k, m in enumerate(arr2):
-            if j==m:
-                l[k] = i
-    return l
+def SortItOut(arr):
+    n = len(arr)
+    indices = list(range(n))
     
-    
+    for i in range(n):
+        swapped = False
+        for j in range(n-1):
+            if arr[j]>arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                indices[j], indices[j+1] = indices[j+1], indices[j]
+                swapped = True
+        if not swapped:
+            break
+
+    return indices
     
 if __name__ == '__main__':
     n = int(input())
     arr = list(map(int, input().rstrip().split()))
-    l = SortItOut(arr, n)
+    l = SortItOut(arr)
     print(*l, sep=" ")
